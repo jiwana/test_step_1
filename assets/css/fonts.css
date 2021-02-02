@@ -1,0 +1,32 @@
+@font-face {
+    font-family: Montserrat;
+    src: url("../fonts/montserrat/Montserrat-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: NunitoSans;
+    src: url("../fonts/nunito_sans/NunitoSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: NunitoSans-Light;
+    src: url("../fonts/nunito_sans/NunitoSans-Light.ttf") format("truetype");
+    font-weight: 400:
+}
+
+@font-face {
+    font-family: NunitoSans-Bold;
+    src: url("../fonts/nunito_sans/NunitoSans-Bold.ttf") format("truetype");
+    font-weight: 700:
+}
+
+@font-face {
+    font-family: NunitoSans-ExtraBold;
+    src: url("../fonts/nunito_sans/NunitoSans-ExtraBold.ttf") format("truetype");
+    font-weight: 700:
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("../fonts/roboto/Roboto-Regular.ttf") format("truetype");
+}

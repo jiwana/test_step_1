@@ -1,0 +1,449 @@
+{% include 'header.html' %}
+
+    <header class="header">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="navbar-top">
+                <div class="container">
+                    <div class="navbar-top-left">
+                        <span class='icon-book-cus fa fa-bookmark'>
+                            <i class='fa fa-tag'></i>
+                        </span>
+                        <span class="text">Gratis Ebook 9 Cara Cerdas Mengunakan Domain [x]</span>
+                    </div>
+                    <ul class="navbar-top-right">
+                        <li>
+                            <a href="#" aria-label="Telephone">
+                                <i class="fas fa-phone"></i><span>{{ data_web.tlp }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="livechat">
+                                <i class="fas fa-comments"></i><span>Live Chat</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Member Area">
+                                <i class="fas fa-user border-icon"></i><span>Member Area</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="#">NiagaHoster</a>
+
+                    <div>
+                        <ul class='toggler-mini-menu float-left'>
+                            <li class="hide-992">
+                                <a href="#" aria-label="Telephone">
+                                    <i class="fas fa-phone"></i><span>{{ data_web.tlp }}</span>
+                                </a>
+                            </li>
+                            <li class="hide-992">
+                                <a href="#" aria-label="livechat">
+                                    <i class="fas fa-comments"></i><span>Live Chat</span>
+                                </a>
+                            </li>
+                            <li class="hide-575">
+                                <a href="#" aria-label="Member Area">
+                                    <i class="fas fa-user border-icon"></i><span>Member Area</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <button class="navbar-toggler collapsed float-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+                        </button>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+                        <ul class="navbar-nav ml-auto">
+                            {% for key,value in data_menu %}
+                                <li><a href="#menu_{{ key }}">{{ value }}</a></li>
+                            {% endfor %}
+                            <li class='show-575'><a href="">Member Area</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+    </header>
+
+    <section class="home-section section-bottom-border" id="menu_home">
+        <div class="container">
+            <div class="row">
+                <div class="content-left col-lg-6">
+                    <h1>{{ data_section_1.title }}</h1>
+                    <p>{{ data_section_1.deskripsi|raw }}</p>
+                    <ul class="list">
+                        {% for value in data_section_1.list %}
+                            <li><i class="fas fa-check-circle"></i><span>{{ value }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{{ data_section_1.image }}" class="hero-image width-100" alt="pic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-2" id="menu_hosting">
+        <div class="container">
+            <div class="row justify-content-around block-round-768">
+                {% for value in data_section_2.data_1 %}
+                <div class="main-services">
+                        <div class='img'>
+                            <object data="{{ value.image }}" type="image/svg+xml"></object>
+                        </div>
+                        <h4>{{ value.title }}</h4>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12 text-center mt-6">
+                    <h2 class="section-title">Paket Hosting Singapura yang Tepat</h2>
+                    <h3 class="section-subtitle">Diskon 40% Domain dan SSL Gratis untuk Anda.</h3>
+
+                    <div class='row paket'>
+                        {% for value in data_section_2.data_2 %}
+                            <div class="paket-data {% if( value.status=='best' ) %} best {% endif %} col-md-3">
+                                {% if( value.status=='best' ) %}
+                                    <div class="ribbon"><span>best seller!</span></div>
+                                {% endif %}
+                                <h3 class='title border'>{{ value.title }}</h3>
+                                <div class='item-harga border'>
+                                    {% if value.old_harga matches '/^[-+]?[0-9]*\\,?[0-9]+$/' %}
+                                        {% set old_harga=value.old_harga|number_format(0, ',', '.') %}
+                                    {% else %}
+                                        {% set old_harga=value.old_harga|number_format(2, ',', '.') %}
+                                    {% endif %}
+
+                                    {% if value.harga matches '/^[-+]?[0-9]*\\,?[0-9]+$/' %}
+                                        {% set harga=value.harga|number_format(0, ',', '.') %}
+                                    {% else %}
+                                        {% set harga=value.harga|number_format(2, ',', '.') %}
+                                    {% endif %}
+
+                                    {% set harga_tmp = harga|split(',') %}
+                                    {% set harga_tmp = harga|split('.') %}
+                                    {% set harga_first = harga_tmp[0] %}
+
+                                    {% if harga_tmp[1]|default(null) %}
+                                        {% set harga_last='.'~harga_tmp[1] %}
+                                    {% else %}
+                                        {% set harga_last='' %}
+                                    {% endif %}
+
+                                    {% for value in harga_tmp|slice(2) %}
+                                        {% set harga_last=harga_last~'.'~value %}
+                                    {% endfor %}
+
+                                    <h4 class='old-harga'>Rp {{ old_harga }}</h4>
+                                    <h4 class="harga">
+                                        <span>Rp <b><span class='big'>{{ harga_first }}</span>{{ harga_last }}</b>/ {{ value.satuan }}</span>
+                                    </h4>
+                                </div>
+                                <div class='pengguna border'>
+                                    {% set jlh_pengguna=0 %}
+                                    {% if value.jlh_pengguna matches '/^[-+]?[0-9]*\\,?[0-9]+$/' %}
+                                        {% set jlh_pengguna=value.jlh_pengguna|number_format(0, ',', '.') %}
+                                    {% else %}
+                                        {% set jlh_pengguna=value.jlh_pengguna|number_format(2, ',', '.') %}
+                                    {% endif %}
+
+                                    <b>{{ jlh_pengguna }}</b> Pengguna Terdaftar
+                                </div>
+                                <div class='item border'>
+                                    <ul>
+                                        {% for item in value.data %}
+                                            <li>{{ item|raw }}</li>
+                                        {% endfor %}
+                                    </ul>
+
+                                    <a href="#contact" class="btn {% if( value.status=='best' ) %} btn-blue {% else %} btn-outline-secondary {% endif %} scrool">Pilih Sekarang</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-6 mb-5">
+                    <h3 class="section-title-2 text-center">{{ data_section_2.data_3.title }}</h3>
+                    <div class="row justify-content-center block-round-991">
+                        {% set limit = data_section_2.data_3.data_limit %}
+                        {% set count_data = data_section_2.data_3.data|length %}
+                        {% set count_loop = 0 %}
+
+                        {% if( count_data%3==0 ) %}
+                            {% set count_loop=count_data/limit  %}
+                        {% else  %}
+                            {% set count_loop=count_data/limit  %}
+                        {% endif  %}
+                        {% for i in 1..count_loop|round(0, 'ceil') %}
+                            <ul class="list-check">
+                                {% if i==1  %}
+                                    {% set start=0  %}
+                                {% else %}
+                                    {% set start=(i*limit)-limit  %}
+                                {% endif  %}
+
+                                {% for key,value in data_section_2.data_3.data|slice(start,limit) %}
+                                    <li {% if( (key+1)%2==0 ) %} class='block' {% endif %} ><i class="fas fa-check-circle"></i><span>{{ value }}</span></li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr class='block'>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-3" id="menu_server">
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-md-12 text-center padding-bottom-10">
+                    <h3 class="section-title-2 text-center">{{ data_section_3.data_1.title }}</h3>
+                </div>
+            </div>
+
+            <div class="row justify-content-center data-1">
+                {% set limit = data_section_3.data_1.data_limit %}
+                {% set count_data = data_section_3.data_1.data|length %}
+                {% set count_loop = 0 %}
+
+                {% if( count_data%3==0 ) %}
+                    {% set count_loop=count_data/limit  %}
+                {% else  %}
+                    {% set count_loop=count_data/limit  %}
+                {% endif  %}
+                {% for i in 1..count_loop|round(0, 'ceil') %}
+                    {% if i==1  %}
+                        {% set start=0  %}
+                    {% else %}
+                        {% set start=(i*limit)-limit  %}
+                    {% endif  %}
+
+                    {% for key,value in data_section_3.data_1.data|slice(start,limit) %}
+                        <div class="col-md-4">
+                            <div class="feature-box">
+                                <img src="{{ value.image }}">
+                                <h4>{{ value.title }}</h4>
+                                <p>{{ value.deskripsi }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <hr class='block'>
+    </section>
+
+    <section class="section-4 section-bottom-border">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center padding-bottom-10">
+                    <h3 class="section-title-2 text-center">{{ data_section_3.data_1.title }}</h3>
+                </div>
+            </div>
+            <div class="row data-1">
+                <div class="col-lg-7 padding-top-20">
+                    <p>{{ data_section_4.data_1.deskripsi }}</p>
+                    <ul class="list">
+                        {% for value in data_section_4.data_1.list %}
+                            <li><i class="fas fa-check-circle"></i><span>{{ value|raw }}</span></li>
+                        {% endfor %}
+                    </ul>
+                    <small>{{ data_section_4.data_1.small_deskripsi }}</small>
+                    <a href="#contact" class="btn btn-blue scrool">Pilih Hosting Anda</a>
+                </div>
+
+                <div class="col-lg-5">
+                    <img src="{{ data_section_4.data_1.image }}" class="hero-image width-100" alt="pic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center padding-bottom-10">
+                    <h3 class="section-title-2 text-center">{{ data_section_5.data_1.title }}</h3>
+                </div>
+                <div class="row align-content-center data-1">
+                    {% set limit = data_section_5.data_1.data_limit %}
+                    {% set count_data = data_section_5.data_1.data|length %}
+                    {% set count_loop = 0 %}
+
+                    {% if( count_data%4==0 ) %}
+                        {% set count_loop=count_data/limit  %}
+                    {% else  %}
+                        {% set count_loop=count_data/limit  %}
+                    {% endif  %}
+
+                    {% set show_button=0  %}
+                    {% if( count_loop|round(0, 'ceil')>4 ) %}
+                        {% set show_button=1  %}
+                        {% set count_loop=4  %}
+                    {% endif  %}
+
+                    {% for i in 1..count_loop|round(0, 'ceil') %}
+                    <div class="col-md-3">
+                        <ul class="list">
+                            {% if i==1  %}
+                                {% set start=0  %}
+                            {% else %}
+                                {% set start=(i*limit)-limit  %}
+                            {% endif  %}
+
+                            {% for key,value in data_section_5.data_1.data|slice(start,limit) %}
+                                <li><span>{{ value }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if( show_button>0 ) %}
+                    <div class="col-md-12 text-center mt-3">
+                        <a href="#contact" class="btn btn-outline-secondary scrool">Selengkapnnya</a>
+                    </div>
+                {% endif  %}
+            </div>
+
+
+            <div class="row data-2">
+                <div class="col-lg-6 padding-top-20">
+                    <h1>{{ data_section_5.data_2.title }}</h1>
+                    <p>{{ data_section_5.data_2.deskripsi|raw }}</p>
+                    <a href="#contact" class="btn btn-blue scrool">Pilih Hosting Anda</a>
+                </div>
+
+                <div class="col-lg-6">
+                    <img src="{{ data_section_5.data_2.image }}" class="hero-image width-100" alt="pic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-6">
+        <div class="row data-1">
+            <div class="container">
+                <div class='d-flex align-items-center line-1'>
+                    <h4>Bagikan jika Anda menyukai halaman ini.</h4>
+                    <ul class='d-flex'>
+                        <li class='d-flex'>
+                            <i class="fab fa-facebook-square icon-sosmed c-fb"></i><div class="talkbubble">80k</div>
+                        </li>
+                        <li class='d-flex'><i class="fab fa-twitter-square icon-sosmed c-twitter"></i><div class="talkbubble">80k</div></li>
+                        <li class='d-flex'><i class="fab fa-google-plus-square icon-sosmed c-google-plus"></i><div class="talkbubble">80k</div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row data-2">
+            <div class="container">
+                <div class='d-flex justify-content-between align-items-end line-2'>
+                    <h3>Perlu <b>BANTUAN?</b> Hubungin Kami : <b>{{ data_web.tlp }}</b> </h3>
+                    <a href="#contact" class="btn btn-outline-secondary"><i class="fas fa-comments"></i><span>Live Chat</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class='item'>
+                            <h4>{{ data_footer.data_1.title }}</h4>
+                            <ul>
+                                <li><a href="tel:{{ data_footer.data_1.tlp }}">{{ data_footer.data_1.tlp }}</a></li>
+                                <li>{{ data_footer.data_1.hari }}</li>
+                                <li>{{ data_footer.data_1.waktu }}</li>
+                                <li class='margin-top-30'>{{ data_footer.data_1.alamat|raw }}</li>
+                            </ul>
+                        </div>
+
+                        {% for value in data_footer.data_2|slice(0,3) %}
+                            <div class='item'>
+                                <h4>{{ value.title }}</h4>
+                                <ul>
+                                    {% for item,url in value.data %}
+                                        <li><a href="{{ url }}">{{ item|raw }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-12 margin-top-20">
+                    <div class="row">
+                        {% for value in data_footer.data_2|slice(3,2) %}
+                            <div class='item'>
+                                <h4>{{ value.title }}</h4>
+                                <ul>
+                                    {% for item,url in value.data %}
+                                        <li><a href="{{ url }}">{{ item|raw }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                        <div class='item form-email'>
+                            <h4>NEWSLATTER</h4>
+                            <div>
+                                <div class="input-group mb-3">
+                                    <input type="email" class="form-control" placeholder="Email">
+                                    <div class="input-group-append">
+                                        <button class="btn" type="button">Berlangganan</button>
+                                    </div>
+                                </div>
+                                <small>Dapatkan Promo dan konten Menarik dari penyediaan hosting terbaik Anda!</small>
+                            </div>
+                        </div>
+                        <div class='item sosmed'>
+                            <ul class='d-flex'>
+                                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                                <li><a href=""><i class="fab fa-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 margin-top-20 pembayaran">
+                    <div class="row dis">
+                        <h4>Pembayaran</h4>
+                        <div>
+                            <ul class='d-flex'>
+                                <li>BCA</li>
+                                <li>Mandiri</li>
+                                <li>BNI</li>
+                                <li>VISA</li>
+                            </ul>
+                        </div>
+                        <small>Aktivasi instan dengan e-Payment. Hosting dan domain langsung aktif!</small>
+                    </div>
+                </div>
+
+                <div class="col-md-12 margin-top-20 copyright">
+                    <div class="row">
+                        <p class='f'>
+                            {{ data_footer.copyright|raw }}
+                        </p class='g'>
+                        <p class='margin-top-10'>Syarat dan Ketentuan | Kebijakan Pripasi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% include 'footer.html' %}
